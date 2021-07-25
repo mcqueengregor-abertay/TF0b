@@ -11,15 +11,22 @@ namespace TF0b.Controllers
         [SerializeField] private float acceleration = 5.0f;
         [SerializeField] private float maxLook = 90.0f;
         [SerializeField] private float runSpeed = 3.0f;
+        [SerializeField] private float sprintFovIncrease = 5.0f;
+        [SerializeField] private float sprintSpeedMultiplier = 1.5f;
         [SerializeField] private CameraController fpsCamera;
         
+        private Camera mainCamera;
+        private float baseFov;
         private float cameraXRot = 0.0f;
+        private float targetFov;
         private InputManager inputManager;
         private new Rigidbody rigidbody;
         private Vector2 movement = Vector2.zero;
 
         void Awake()
         {
+            mainCamera = Camera.main;
+            baseFov = mainCamera.fieldOfView;
             inputManager = FindObjectOfType<InputManager>();
             rigidbody = GetComponent<Rigidbody>();
         }
@@ -27,6 +34,7 @@ namespace TF0b.Controllers
         void Start()
         {
             fpsCamera.MakeCurrent();
+            targetFov = baseFov;
         }
 
         void FixedUpdate()
@@ -44,11 +52,17 @@ namespace TF0b.Controllers
             fpsCamera.transform.localEulerAngles = new Vector3(cameraXRot, 0.0f, 0.0f);
 
             transform.Rotate(0, mouseDelta.x, 0);
+
+            if(inputManager.IsSprinting && movement.sqrMagnitude > 0.0f) targetFov = baseFov + sprintFovIncrease;
+            else targetFov = baseFov;
+
+            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, targetFov, Time.deltaTime * sprintFovIncrease);
         }
 
         private void DoMove()
         {
-			movement = Vector2.MoveTowards(movement, inputManager.CurrentMove, acceleration * Time.deltaTime);
+            float sprintMul = inputManager.IsSprinting ? sprintSpeedMultiplier : 1.0f;
+			movement = Vector2.MoveTowards(movement, inputManager.CurrentMove * sprintMul, acceleration * Time.deltaTime);
 			Vector3 velocity = new Vector3(movement.x * runSpeed, rigidbody.velocity.y, movement.y * runSpeed);
 			rigidbody.velocity = transform.rotation * velocity;
         }
