@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
 
     void Awake()
     {
+        if(Current == null) MakeCurrent();
         mainCamera = Camera.main.transform;
     }
 
