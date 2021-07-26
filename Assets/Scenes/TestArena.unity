@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2719.418, g: 2721.3633, b: 3828.8984, a: 1}
+  m_IndirectSpecularColor: {r: 2721.2598, g: 2724.8008, b: 3814.1797, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -593,11 +593,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceleration: 5
+  crouchRate: 2
+  crouchSpeedMultiplier: 0.5
   maxLook: 90
   runSpeed: 3
   sprintFovIncrease: 5
   sprintSpeedMultiplier: 1.5
   fpsCamera: {fileID: 2114007411}
+  collider: {fileID: 1176531251}
 --- !u!54 &1176531250
 Rigidbody:
   m_ObjectHideFlags: 0
