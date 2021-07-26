@@ -13,13 +13,19 @@ namespace TF0b.Input
 		public bool IsSprinting { get; private set; } = false;
 		public CursorLockMode CursorLock { get => Cursor.lockState; set => Cursor.lockState = value; }
 		public float LookSensitivity { get => lookSensitivity * sensitivityFudge; set => SetLookSensitivity(value); }
+		public UnityEvent OnCrouchDown { get; } = new UnityEvent();
 		public Vector2 CurrentMove { get; private set; }
 		public Vector2 CurrentLook { get; private set; }
 
 		[SerializeField] private float sensitivityFudge = 50.0f;
 		private float lookSensitivity = 1.0f;
 
-		void OnCrouch(InputValue value) => IsCrouching = value.isPressed;
+		void OnCrouch(InputValue value)
+		{
+			if(value.isPressed) OnCrouchDown.Invoke();
+			IsCrouching = value.isPressed;
+		}
+
 		void OnLook(InputValue value) => CurrentLook = value.Get<Vector2>();
 		void OnMove(InputValue value) => CurrentMove = value.Get<Vector2>();
 		void OnSprint(InputValue value) => IsSprinting = value.isPressed;

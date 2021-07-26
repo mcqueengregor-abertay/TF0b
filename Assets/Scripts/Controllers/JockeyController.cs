@@ -8,11 +8,12 @@ namespace TF0b.Controllers
     [RequireComponent(typeof(Rigidbody))]
 	public class JockeyController : MonoBehaviour
 	{
-        [SerializeField] private float acceleration = 5.0f;
+        [SerializeField] private float acceleration = 10.0f;
         [SerializeField] private float crouchRate = 2.0f;
 		[SerializeField] private float crouchSpeedMultiplier = 0.5f;
         [SerializeField] private float maxLook = 90.0f;
         [SerializeField] private float runSpeed = 3.0f;
+        [SerializeField] private float slideSpeedMultiplier = 3.0f;
         [SerializeField] private float sprintFovIncrease = 5.0f;
         [SerializeField] private float sprintSpeedMultiplier = 1.5f;
         [SerializeField] private CameraController fpsCamera;
@@ -25,6 +26,7 @@ namespace TF0b.Controllers
         private InputManager inputManager;
         private new Rigidbody rigidbody;
         private Vector3 movement = Vector3.zero;
+        private Vector3 slideVector = Vector3.zero;
 
         void Awake()
         {
@@ -38,6 +40,7 @@ namespace TF0b.Controllers
         {
             fpsCamera.MakeCurrent();
             targetFov = baseFov;
+            inputManager.OnCrouchDown.AddListener(OnCrouch);
         }
 
         void FixedUpdate()
@@ -71,10 +74,20 @@ namespace TF0b.Controllers
             Vector3 currentMove = inputManager.CurrentMove * runSpeed * speedMul;
             movement = Vector3.MoveTowards(movement, new Vector3(currentMove.x, 0.0f, currentMove.y), Time.deltaTime * acceleration);
             movement.y = rigidbody.velocity.y;
-            rigidbody.velocity = transform.rotation * movement;
+            rigidbody.velocity = transform.rotation * movement + slideVector;
+
+            slideVector = Vector3.MoveTowards(slideVector, Vector3.zero, Time.deltaTime * acceleration);
 
             float colliderTarget = inputManager.IsCrouching ? 1.0f : 2.0f;
             collider.height = Mathf.MoveTowards(collider.height, colliderTarget, Time.deltaTime * crouchRate);
+        }
+
+        private void OnCrouch()
+        {
+            if(rigidbody.velocity.sqrMagnitude > runSpeed * runSpeed)
+            {
+				slideVector = rigidbody.velocity * slideSpeedMultiplier;
+            }
         }
 	}
 }
