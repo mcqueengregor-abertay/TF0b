@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2719.629, g: 2721.746, b: 3829.2656, a: 1}
+  m_IndirectSpecularColor: {r: 2552.4453, g: 2398.6094, b: 2820.039, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -573,6 +573,7 @@ GameObject:
   - component: {fileID: 1176531251}
   - component: {fileID: 1176531250}
   - component: {fileID: 1176531249}
+  - component: {fileID: 1176531255}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -605,6 +606,7 @@ MonoBehaviour:
   jumpCastMask:
     serializedVersion: 2
     m_Bits: 823
+  cameraBobbing: {fileID: 1176531255}
   fpsCamera: {fileID: 2114007411}
   collider: {fileID: 1176531251}
 --- !u!54 &1176531250
@@ -702,6 +704,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1176531255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176531248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d80d0793489c09459cbdbf209cbc8de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bobScale: 0.05
+  bobSpeed: 10
+  cameraController: {fileID: 2114007411}
+  rigidbody: {fileID: 1176531250}
 --- !u!1 &1823688464
 GameObject:
   m_ObjectHideFlags: 0
