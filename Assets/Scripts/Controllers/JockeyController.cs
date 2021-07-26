@@ -11,14 +11,19 @@ namespace TF0b.Controllers
         [SerializeField] private float acceleration = 10.0f;
         [SerializeField] private float crouchRate = 2.0f;
 		[SerializeField] private float crouchSpeedMultiplier = 0.5f;
+        [SerializeField] private float jumpCastDistance = 0.1f;
+        [SerializeField] private float jumpSpeed = 2.0f;
         [SerializeField] private float maxLook = 90.0f;
         [SerializeField] private float runSpeed = 3.0f;
         [SerializeField] private float slideSpeedMultiplier = 3.0f;
         [SerializeField] private float sprintFovIncrease = 5.0f;
         [SerializeField] private float sprintSpeedMultiplier = 1.5f;
+        [SerializeField] private LayerMask jumpCastMask;
         [SerializeField] private CameraController fpsCamera;
         [SerializeField] private new CapsuleCollider collider;
         
+        private bool canDoubleJump = false;
+        private bool isGrounded = false;
         private Camera mainCamera;
         private float baseFov;
         private float cameraXRot = 0.0f;
@@ -41,10 +46,14 @@ namespace TF0b.Controllers
             fpsCamera.MakeCurrent();
             targetFov = baseFov;
             inputManager.OnCrouchDown.AddListener(OnCrouch);
+            inputManager.OnJumpDown.AddListener(OnJump);
         }
 
         void FixedUpdate()
         {
+            isGrounded = Physics.SphereCast(transform.position, collider.radius, Vector3.down, out RaycastHit hit, jumpCastDistance, jumpCastMask);
+            if(isGrounded) canDoubleJump = true;
+
             DoCamera();
             DoMove();
         }
@@ -87,6 +96,16 @@ namespace TF0b.Controllers
             if(rigidbody.velocity.sqrMagnitude > runSpeed * runSpeed)
             {
 				slideVector = rigidbody.velocity * slideSpeedMultiplier;
+            }
+        }
+
+        private void OnJump()
+        {
+            if(isGrounded || canDoubleJump)
+            {
+                rigidbody.AddForce(Vector2.up * (jumpSpeed - rigidbody.velocity.y), ForceMode.VelocityChange);
+                if(!isGrounded) canDoubleJump = false;
+                isGrounded = false;
             }
         }
 	}

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2552.5332, g: 2399.0938, b: 2820.4219, a: 1}
+  m_IndirectSpecularColor: {r: 2719.629, g: 2721.746, b: 3829.2656, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -573,7 +573,7 @@ GameObject:
   - component: {fileID: 1176531251}
   - component: {fileID: 1176531250}
   - component: {fileID: 1176531249}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -595,11 +595,16 @@ MonoBehaviour:
   acceleration: 10
   crouchRate: 2
   crouchSpeedMultiplier: 0.5
+  jumpCastDistance: 1.1
+  jumpSpeed: 5
   maxLook: 90
   runSpeed: 3
   slideSpeedMultiplier: 3
   sprintFovIncrease: 5
   sprintSpeedMultiplier: 1.5
+  jumpCastMask:
+    serializedVersion: 2
+    m_Bits: 823
   fpsCamera: {fileID: 2114007411}
   collider: {fileID: 1176531251}
 --- !u!54 &1176531250
@@ -993,7 +998,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2114007410}
   - component: {fileID: 2114007411}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FPS Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}

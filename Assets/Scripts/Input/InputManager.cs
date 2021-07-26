@@ -8,12 +8,14 @@ namespace TF0b.Input
 {
 	public class InputManager : MonoBehaviour
 	{
-		public bool IsCrouching { get; private set; }
+		public bool IsCrouching { get; private set; } = false;
 		public bool IsCursorVisible { get => Cursor.visible; set => Cursor.visible = value; }
+		public bool IsJumping {get; private set; } = false;
 		public bool IsSprinting { get; private set; } = false;
 		public CursorLockMode CursorLock { get => Cursor.lockState; set => Cursor.lockState = value; }
 		public float LookSensitivity { get => lookSensitivity * sensitivityFudge; set => SetLookSensitivity(value); }
 		public UnityEvent OnCrouchDown { get; } = new UnityEvent();
+		public UnityEvent OnJumpDown { get; } = new UnityEvent();
 		public Vector2 CurrentMove { get; private set; }
 		public Vector2 CurrentLook { get; private set; }
 
@@ -26,6 +28,11 @@ namespace TF0b.Input
 			IsCrouching = value.isPressed;
 		}
 
+		void OnJump(InputValue value)
+		{
+			if(value.isPressed) OnJumpDown.Invoke();
+			IsJumping = value.isPressed;
+		}
 		void OnLook(InputValue value) => CurrentLook = value.Get<Vector2>();
 		void OnMove(InputValue value) => CurrentMove = value.Get<Vector2>();
 		void OnSprint(InputValue value) => IsSprinting = value.isPressed;
