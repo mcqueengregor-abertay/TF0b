@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2719.629, g: 2721.746, b: 3807.2266, a: 1}
+  m_IndirectSpecularColor: {r: 2719.418, g: 2721.3633, b: 3828.8984, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -475,6 +475,18 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1999ac12c8b793446a66d4e81bc06085, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1999ac12c8b793446a66d4e81bc06085, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1999ac12c8b793446a66d4e81bc06085, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1999ac12c8b793446a66d4e81bc06085, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
       objectReference: {fileID: 0}
@@ -488,7 +500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1999ac12c8b793446a66d4e81bc06085, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071067
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1999ac12c8b793446a66d4e81bc06085, type: 3}
       propertyPath: m_LocalRotation.x
@@ -500,11 +512,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1999ac12c8b793446a66d4e81bc06085, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1999ac12c8b793446a66d4e81bc06085, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1999ac12c8b793446a66d4e81bc06085, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -583,6 +595,8 @@ MonoBehaviour:
   acceleration: 5
   maxLook: 90
   runSpeed: 3
+  sprintFovIncrease: 5
+  sprintSpeedMultiplier: 1.5
   fpsCamera: {fileID: 2114007411}
 --- !u!54 &1176531250
 Rigidbody:
