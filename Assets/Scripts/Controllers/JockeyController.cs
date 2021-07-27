@@ -14,6 +14,7 @@ namespace TF0b.Controllers
         [SerializeField] private float jumpCastDistance = 0.1f;
         [SerializeField] private float jumpSpeed = 5.0f;
         [SerializeField] private float maxLook = 90.0f;
+        [SerializeField] private float maxSlideSpeed = 15.0f;
         [SerializeField] private float runSpeed = 3.0f;
         [SerializeField] private float slideSpeedMultiplier = 3.0f;
         [SerializeField] private float sprintFovIncrease = 5.0f;
@@ -95,9 +96,13 @@ namespace TF0b.Controllers
 
         private void OnCrouch()
         {
-            if(rigidbody.velocity.sqrMagnitude > runSpeed * runSpeed)
+            if(isGrounded && rigidbody.velocity.sqrMagnitude > runSpeed * runSpeed)
             {
 				slideVector = rigidbody.velocity * slideSpeedMultiplier;
+                if(slideVector.sqrMagnitude > maxSlideSpeed * maxSlideSpeed)
+                {
+                    slideVector = slideVector.normalized * maxSlideSpeed;
+                }
             }
         }
 
