@@ -11,12 +11,12 @@ namespace TF0b.Controllers
         [SerializeField] private float acceleration = 10.0f;
         [SerializeField] private float crouchRate = 2.0f;
 		[SerializeField] private float crouchSpeedMultiplier = 0.5f;
-        [SerializeField] private float jumpCastDistance = 0.1f;
+        [SerializeField] private float jumpCastDistance = 1.1f;
         [SerializeField] private float jumpSpeed = 5.0f;
         [SerializeField] private float maxLook = 90.0f;
         [SerializeField] private float maxSlideSpeed = 15.0f;
         [SerializeField] private float maxWallrunSpeed = 5.0f;
-        [SerializeField] private float runSpeed = 3.0f;
+        [SerializeField] private float runSpeed = 5.0f;
         [SerializeField] private float slideSpeedMultiplier = 3.0f;
         [SerializeField] private float sprintFovIncrease = 5.0f;
         [SerializeField] private float sprintSpeedMultiplier = 1.5f;
@@ -24,6 +24,7 @@ namespace TF0b.Controllers
         [SerializeField] private float wallrunCameraTilt = 5.0f;
         [SerializeField] private float wallrunCameraTiltSpeed = 10.0f;
         [SerializeField] private float wallrunCastDistance = 0.6f;
+        [SerializeField] private Vector3 jumpCastOffset = Vector3.up;
         [SerializeField] private LayerMask jumpCastMask;
         [SerializeField] private CameraBobbing cameraBobbing;
         [SerializeField] private CameraController fpsCamera;
@@ -64,7 +65,7 @@ namespace TF0b.Controllers
 
         void FixedUpdate()
         {
-            isGrounded = Physics.SphereCast(transform.position, collider.radius, Vector3.down, out RaycastHit hit, jumpCastDistance, jumpCastMask);
+            isGrounded = Physics.SphereCast(transform.position + jumpCastOffset, collider.radius, Vector3.down, out RaycastHit hit, jumpCastDistance, jumpCastMask);
             if(isGrounded || wallrunLeft || wallrunRight) canDoubleJump = true;
             cameraBobbing.enabled = isGrounded && !wallrunLeft && !wallrunRight && slideVector.sqrMagnitude < 1.0f;
 
